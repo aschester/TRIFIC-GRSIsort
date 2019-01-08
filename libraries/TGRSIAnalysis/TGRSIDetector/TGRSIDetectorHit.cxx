@@ -160,6 +160,17 @@ void TGRSIDetectorHit::Print(Option_t*) const
    /// General print statement for a TGRSIDetectorHit.
    /// Currently prints nothing.
    // fPosition.Print();
+
+  // Print like TTigressHit
+  // --ASC 9 Oct 2018
+   printf("==== GenericDetectorHit @ 0x%p\n ====", (void*)this);
+   printf("\t%s\n", GetName());
+   printf("\tCharge: %f\n", GetCharge());
+   printf("\tEnergy: %.2f\n", GetEnergy());
+   printf("\tTime:   %.2f\n", GetTime());
+   std::cout<<"\tTime:   "<<GetTimeStamp()<<"\n";
+   printf("============================\n");
+
 }
 
 const char* TGRSIDetectorHit::GetName() const

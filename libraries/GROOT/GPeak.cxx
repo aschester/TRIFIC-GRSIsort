@@ -432,12 +432,19 @@ void GPeak::Print(Option_t* opt) const
 {
    TString options = opt;
    printf(GREEN);
+
+   // calculate uncertainty on resolution
+   // --ASC 12 Dec 2018
+   Double_t dRes = TMath::Sqrt(TMath::Power(GetFWHMErr()/GetFWHM(),2.)+TMath::Power(GetParError(GetParNumber("centroid"))/GetParameter("centroid"),2.));
+   dRes *= GetFWHM() / GetParameter("centroid") * 100.;
+
    printf("Name: %s \n", GetName());
    printf("Centroid:  %1f +/- %1f \n", GetParameter("centroid"), GetParError(GetParNumber("centroid")));
    printf("Area:      %1f +/- %1f \n", fArea, fDArea);
    printf("Sum:       %1f +/- %1f \n", fSum, fDSum);
    printf("FWHM:      %1f +/- %1f \n", GetFWHM(), GetFWHMErr());
-   printf("Reso:      %1f%%  \n", GetFWHM() / GetParameter("centroid") * 100.);
+   // printf("Reso:      %1f%%  \n", GetFWHM() / GetParameter("centroid") * 100.);
+   printf("Reso:      %1f +/- %1f%%  \n", GetFWHM() / GetParameter("centroid") * 100.,dRes);
    printf("Chi^2/NDF: %1f\n", fChi2 / fNdf);
    if(options.Contains("all")) {
       TF1::Print(opt);

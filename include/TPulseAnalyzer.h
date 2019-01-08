@@ -132,6 +132,7 @@ public:
    inline double Get_wpar_amplitude() { return cWpar->amplitude; }
    inline double Get_wpar_decay() { return cWpar->tauDecay; }
    inline double Get_wpar_rise() { return cWpar->tauRise; }
+   inline double Get_wpar_t10t90() { return cWpar->t10t90; }
 
    bool SiliShapePrepare(double tauDecay,double tauRise);
    bool GetSiliShape(double tauDecay, double tauRise); // Added for Spice, parameters to be found : t0 and Amplitude
@@ -217,6 +218,8 @@ private:
    void   get_t30();
    void   get_t50();
    void   get_t90();
+   void   get_t10t90();
+
 
    double get_sin_par(double);
 
@@ -240,6 +243,14 @@ private:
    const static int BADCHISQ_T0   = -1024 - 7;
    const static int BADCHISQ_NEG  = -1024 - 1;
    const static int BADCHISQ_AMPL = -1024 - 6;
+
+   const static int SIGN2NOISE = 0; //signal to noise ratio for get_sig2noise
+   const static int T10LOW = 50;  //low limit for T10
+   const static int T10HIGH = 300; //high linit for T10
+   const static int T50LOW = 100;
+   const static int T50HIGH = 300;
+   const static int T90LOW = 200;
+   const static int T90HIGH = 800;
 
    /// \cond CLASSIMP
    ClassDef(TPulseAnalyzer, 4)

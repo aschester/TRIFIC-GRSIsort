@@ -592,8 +592,10 @@ void TGRSIint::SetupPipeline()
    }
 
    // this happens here, because the TDataLoop constructor is where we read the midas file ODB
+   // added TIGRESS and generic detector (TRIFIC) on GRIF16s for event build by timestamp
+   // -- ASC 14 Sept 2018
    TEventBuildingLoop::EBuildMode event_build_mode = TEventBuildingLoop::EBuildMode::kTriggerId;
-   if(TGRSIRunInfo::Get()->Griffin() || TGRSIRunInfo::Get()->Fipps()) {
+   if( TGRSIRunInfo::Get()->Griffin() || TGRSIRunInfo::Get()->Fipps() || TGRSIRunInfo::Get()->Tigress() || TGRSIRunInfo::Get()->Generic() ) {
       event_build_mode = TEventBuildingLoop::EBuildMode::kTimestamp;
    }
 

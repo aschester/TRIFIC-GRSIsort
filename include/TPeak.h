@@ -54,6 +54,8 @@ public:
    Double_t GetAreaErr() const { return fDArea; }
    Double_t GetFWHM() const { return GetParameter("sigma") * 2.3548; }
    Double_t GetFWHMErr() const { return GetParError(GetParNumber("sigma")) * 2.3548; }
+   Double_t GetBeta() const {return GetParameter("beta"); }
+   Double_t GetBetaErr() const {return GetParError(GetParNumber("beta")); }
    Double_t GetIntegralArea();
    Double_t GetIntegralArea(Double_t int_low, Double_t int_high);
    Double_t GetIntegralAreaErr();

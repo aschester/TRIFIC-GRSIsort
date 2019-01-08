@@ -762,6 +762,68 @@ void TPulseAnalyzer::get_t30()
    }
 }
 
+/*===========================================================*/
+void TPulseAnalyzer::get_t10t90()
+{
+  get_sig2noise();
+  if(cWpar->sig2noise>SIGN2NOISE)
+    {
+      get_t50();
+      if(cWpar->t50_flag==1)
+	{
+	  if(cWpar->t50>T50LOW)
+	    {
+	      if(cWpar->t50<T50HIGH)
+		{
+		  get_t90();
+		  if(cWpar->t90_flag==1)
+		    {
+		      if(cWpar->t90>T90LOW)
+			{
+			  if(cWpar->t90<T90HIGH)
+			    {
+			      get_t10();
+			      if(cWpar->t10_flag==1)
+				{
+				  if(cWpar->t10>T10LOW)
+				    {
+				      if(cWpar->t10<T10HIGH)
+					{
+					  cWpar->t10t90_flag=1;
+					  cWpar->t10t90=cWpar->t90-cWpar->t10;
+					  std::cout << "PulseAnalyzer t90: " << cWpar->t90 << " t10: " << cWpar->t10 << " t10t90: " << cWpar->t10t90 << std::endl;
+					}
+				      else
+					cWpar->t10t90_flag=-10;
+				    }
+				  else
+				    cWpar->t10t90_flag=-9;
+				}
+			      else
+				cWpar->t10t90_flag=-8;
+			    }
+			  else 
+			    cWpar->t10t90_flag=-7;
+			}
+		      else
+			cWpar->t10t90_flag=-6;
+		    }
+		  else
+		    cWpar->t10t90_flag=-5;
+		}
+	      else
+		cWpar->t10t90_flag=-4;
+	    }
+	  else
+	    cWpar->t10t90_flag=-3;
+	}
+      else
+	cWpar->t10t90_flag=-2;
+    }
+  else
+    cWpar->t10t90_flag=-1;
+}
+
 double TPulseAnalyzer::get_sin_par(double T)
 {
    int    i;

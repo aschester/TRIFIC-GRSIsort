@@ -118,6 +118,27 @@ public:
    TVector3 GetPosition(Double_t dist = 0.) const override;
    TVector3 GetLastPosition(Double_t dist = 0.) const;
 
+   // TIGRESS ring number per SFU analysis code
+   // ASC 29 October 2018
+   //
+   Int_t GetRing() {
+     Int_t pos = -1, cry = -1;
+     if (GetCrystal() == 0 || GetCrystal() == 3) cry = 0;
+     else if (GetCrystal() == 1 || GetCrystal() == 2) cry = 1;
+     else {
+       // error return for bad crystal
+       return -1;
+     }
+     if(GetDetector() >= 1 && GetDetector() <= 4) pos = 1;
+     else if(GetDetector() >= 5 && GetDetector() <= 12) pos = 3;
+     else if(GetDetector() >= 13 && GetDetector() <= 16) pos = 5;
+     else {
+       // error return for bad position
+       return -1;
+     }
+     return pos+cry;
+   };
+
 public:
    void Clear(Option_t* opt = "") override;       //!<!
    void Copy(TObject&) const override;            //!<!
